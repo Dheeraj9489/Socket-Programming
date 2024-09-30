@@ -77,5 +77,7 @@ def start_server(server_ip, server_port):
 
 if __name__ == "__main__":
     SERVER_IP = "127.0.0.1"  # Change as needed
-    SERVER_PORT = 8080  # Change as needed
+
+    print("Specify a port number to listen on: ", end="")
+    SERVER_PORT = int(input())  # Change as needed
     start_server(SERVER_IP, SERVER_PORT)
