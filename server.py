@@ -1,7 +1,7 @@
 import socket
 import threading
 
-# Global list to keep track of connected clients
+# Global list for connected clients
 clients = []
 usernames = {}
 
@@ -9,11 +9,10 @@ usernames = {}
 def handle_client(client_socket, client_address):
     print(f"[NEW CONNECTION] {client_address} connected.")
 
-    #client_socket.send("Enter your username: ".encode('utf-8'))
     username = client_socket.recv(1024).decode('utf-8')
     usernames[client_socket] = username
     print(f"[NEW USER] {username} has joined the chat.")
-    print(f"Total clients: {threading.active_count()}")
+    print(f"Total clients: {threading.active_count() - 1}")
 
     broadcast(f"{username} has joined the chat!\n".encode('utf-8'), client_socket)
 
@@ -31,19 +30,9 @@ def handle_client(client_socket, client_address):
                 remove_client(client_socket)
                 break
         except:
-            # Handle any exceptions, like a disconnection
+            # Handle exceptions
             remove_client(client_socket)
             break
-    # username = client_socket.recv(1024).decode('utf-8')
-    # clients[client_address] = {'socket': client_socket, 'username': username}
-    # print(f"[NEW CONNECTION] {client_address} connected.")
-    # client_socket.send("Welcome to the chat server!\n".encode('utf-8'))
-    # clients[client_address] = {'socket': client_socket, 'username': username}
-
-    # while True:
-    #     # <code here>
-    #     pass # remove this line later
-
 
 # Function to broadcast messages to all clients
 def broadcast(message, sender_socket):
@@ -84,42 +73,6 @@ def start_server(server_ip, server_port):
         # Start a new thread to handle the client
         thread = threading.Thread(target=handle_client, args=(client_socket, client_address))
         thread.start()
-
-    # while True:
-    #     client_socket, client_address = server_socket.accept()
-    #     print(client_socket)
-    #     clients.append(client_socket)
-    #     print(f"Total clients: {threading.active_count()}")
-
-    #     #TODO: handle multiple clients
-    #     try:
-    #         print(f"Connected by {client_address}")
-
-    #         data = client_socket.recv(1024)
-    #         print(f'Recieved: {data.decode("utf-8")}')
-            
-    #         if data:
-    #             response = 'Message recieved from ' + client_address[0]
-    #             client_socket.sendall(response.encode('utf-8'))
-                
-    #         else:
-    #             print('No data received from', client_address)
-    #     finally:
-    #         # Clean up the connection
-    #         client_socket.close()
-
-        # for client in clients:
-        #     with client:
-        #         print(f"Connected by {client_address}")
-        #         while True:
-        #             data = client_socket.recv(1024)
-        #             print(data)
-        #             if not data:
-        #                 break
-        #             client_socket.sendall(data)
-        # Start a new thread to handle the client
-        # <code here>
-        
 
 
 if __name__ == "__main__":
