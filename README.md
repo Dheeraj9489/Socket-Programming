@@ -2,7 +2,7 @@
 The fundamentals of socket programming by creating a simple chat application using TCP
 
 ## Directions:  
-Run `server.py` first  
+Run `server.py` first and `8080` is the default port  
 You can start running upto 5 `client.py`
 And start chatting!
 

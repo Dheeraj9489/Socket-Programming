@@ -15,7 +15,7 @@ def receive_messages(client_socket):
                 break
         except:
             # If an error occurs, close the connection
-            print("An error occurred.")
+            # print("An error occurred.")
             client_socket.close()
             break
     

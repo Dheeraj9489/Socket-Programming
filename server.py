@@ -22,6 +22,7 @@ def handle_client(client_socket, client_address):
             message = client_socket.recv(1024)
             if message:
                 # Broadcast the message to all other clients
+                # only if the message is not '/quit'
                 if message.decode('utf-8') != "/quit":
                     broadcast(f"{username}: {message.decode('utf-8')}".encode('utf-8'), client_socket)
                     print(f"[{username}]: {message.decode('utf-8')}")
@@ -77,7 +78,7 @@ def start_server(server_ip, server_port):
 
 if __name__ == "__main__":
     SERVER_IP = "127.0.0.1"  # Change as needed
-
+    # lets the user select the port
     print("Specify a port number to listen on: ", end="")
-    SERVER_PORT = int(input())  # Change as needed
+    SERVER_PORT = int(input())
     start_server(SERVER_IP, SERVER_PORT)
